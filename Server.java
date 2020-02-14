@@ -1,6 +1,8 @@
 //program for server application
 import java.rmi.*;
 import java.rmi.registry.*;
+import java.util.*;
+
 public class Server
 {
 	public static void main(String args[])
@@ -12,13 +14,14 @@ public class Server
 			Search obj = new SearchQuery();
 
 			// rmiregistry within the server JVM with
-			// port number 1900
-			LocateRegistry.createRegistry(1900);
+			// port number given by user
+      int port = Integer.parseInt(args[0]);
+			LocateRegistry.createRegistry(port);
 
 			// Binds the remote object by the name
 			// geeksforgeeks
-			Naming.rebind("rmi://10.42.0.1:1900"+
-						"/geeksforgeeks",obj);
+			Naming.rebind("rmi://localhost:" + args[0] + "/mst" ,obj);
+      // System.out.println("Port binding successful");
 		}
 		catch(Exception ae)
 		{
